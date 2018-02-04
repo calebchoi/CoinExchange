@@ -35,7 +35,7 @@ class App extends Component {
     delete favorites[id];
     this.setState({
       favoriteList: favorites,
-    }); 
+    });
   }
 
   render() {
