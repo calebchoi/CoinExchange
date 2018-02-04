@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Coins from './components/Coins.jsx';
+import CoinList from './components/CoinList.jsx';
 
 class App extends Component {
-  state = {
-    coinList: [],
+  constructor() {
+    super();
+    this.state = {
+      coinList: [],
+    }
   };
 
   // componentDidMount() {
@@ -14,11 +17,13 @@ class App extends Component {
   // }
 
   callCoinExchange = () => {
-    console.log('hello');
     axios.get('/coins')
     .then((response) => {
-      console.log('im the response', response.data);
+      this.setState({
+        coinList: response.data,
+      });
     })
+    .catch(err => console.log(err));
   }
 
   render() {
@@ -31,6 +36,7 @@ class App extends Component {
           {this.state.response}
         </p>
         <button onClick={this.callCoinExchange.bind(this)}>Submit</button>
+        <CoinList coinList={this.state.coinList} />
       </div>
     );
   }
