@@ -7,6 +7,8 @@ const CoinList = props => (
     {props.coinList.map(coin => (
       <Coin
         coin={coin}
+        addFavorite={props.addFavorite}
+        favorite={false}
         key={coin.id}
       />
     ))}
@@ -15,6 +17,7 @@ const CoinList = props => (
 
 CoinList.propTypes = {
   coinList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  addFavorite: PropTypes.func.isRequired,
 };
 
 export default CoinList;
