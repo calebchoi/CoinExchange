@@ -4,6 +4,13 @@ import Coin from './Coin.jsx';
 
 const CoinList = props => (
   <div className="coinList">
+    <ul>
+      <li>Rank</li>
+      <li>Name</li>
+      <li>Price</li>
+      <li>BTC Price</li>
+      <li>Change (24H)</li>
+    </ul>
     {props.coinList.map(coin => (
       <Coin
         coin={coin}

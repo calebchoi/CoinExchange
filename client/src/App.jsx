@@ -35,7 +35,6 @@ class App extends Component {
         <p className="App-intro">
           {this.state.response}
         </p>
-        <Coin coin={this.state.exampleCoin}/>
         <button onClick={this.callCoinExchange.bind(this)}>Submit</button>
         <CoinList coinList={this.state.coinList} />
       </div>
