@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import CoinList from './components/CoinList.jsx';
+import FavoriteList from './components/FavoriteList.jsx';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       coinList: [],
+      favoriteList: {},
     }
   };
 
-  // componentDidMount() {
-  //   this.callApi()
-  //     .then(res => this.setState({ response: res.express }))
-  //     .catch(err => console.log(err));
-  // }
-
-  callCoinExchange = () => {
+  componentWillMount() {
     axios.get('/coins')
     .then((response) => {
       this.setState({
@@ -24,6 +20,22 @@ class App extends Component {
       });
     })
     .catch(err => console.log(err));
+  }
+
+  addFavorite = (coin) => {
+    const favorites = Object.assign({}, this.state.favoriteList);
+    favorites[coin.id] = coin;
+    this.setState({
+      favoriteList: favorites,
+    });
+  }
+
+  removeFavorite = (id) => {
+    const favorites = Object.assign({}, this.state.favoriteList);
+    delete favorites[id];
+    this.setState({
+      favoriteList: favorites,
+    }); 
   }
 
   render() {
@@ -35,8 +47,8 @@ class App extends Component {
         <p className="App-intro">
           {this.state.response}
         </p>
-        <button onClick={this.callCoinExchange.bind(this)}>Submit</button>
-        <CoinList coinList={this.state.coinList} />
+        <FavoriteList favoriteList={this.state.favoriteList} removeFavorite={this.removeFavorite} />
+        <CoinList coinList={this.state.coinList} addFavorite={this.addFavorite} />
       </div>
     );
   }
